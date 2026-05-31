@@ -33,12 +33,35 @@
     z-index:2;
 }
 
-   .flower{
+ .flower{
     position:absolute;
+    top:-50px;
     font-size:28px;
     opacity:0.45;
     user-select:none;
-    animation:float 4s ease-in-out infinite;
+
+    animation:
+        fall 12s linear infinite,
+        sway 3s ease-in-out infinite,
+        spin 6s linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-120px);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+@keyframes sway{
+    0%,100%{
+        margin-left:0;
+    }
+    50%{
+        margin-left:25px;
+    }
 }
     .overlay{
     display:none;
@@ -48,12 +71,12 @@
     z-index:99;
 }
 
-@keyframes float{
-    0%,100%{
-        transform:translateY(0);
+@keyframes spin{
+    from{
+        rotate:0deg;
     }
-    50%{
-        transform:translateY(-12px);
+    to{
+        rotate:360deg;
     }
 }
    .button-back{
@@ -84,16 +107,36 @@
     padding:12px 32px;
     font-size:22px;
     font-family:"Times New Roman", Times, serif;
+
     background:#F6A5C0;
     color:white;
     border:none;
     border-radius:30px;
     cursor:pointer;
+
     transition:all 0.3s ease;
+
+    animation:pulse 1.8s infinite;
+}
+    @keyframes pulse{
+    0%{
+        transform:scale(1);
+        box-shadow:0 0 0 0 rgba(246,165,192,0.6);
+    }
+
+    70%{
+        transform:scale(1.08);
+        box-shadow:0 0 0 18px rgba(246,165,192,0);
+    }
+
+    100%{
+        transform:scale(1);
+        box-shadow:0 0 0 0 rgba(246,165,192,0);
+    }
 }
 
 .button-letter:hover{
-    transform:scale(1.05);
+    transform:scale(1.12) rotate(-2deg);
     background:#F48FB1;
 }
 .letter{
@@ -101,11 +144,14 @@
     position:fixed;
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%) scale(0.5);
+
+    transform:
+        translate(-50%,-50%)
+        scale(0.3)
+        rotate(-8deg);
 
     width:min(90vw, 420px);
     max-height:70vh;
-    height:auto;
 
     background:white;
     border-radius:12px;
@@ -115,15 +161,37 @@
     z-index:100;
 
     opacity:0;
-    transition:opacity 0.4s ease, transform 0.4s ease;
-
+   transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.18,0.89,0.32,1.28);
     overflow-y:auto;
 }
-    
-    .letter.show{
-    opacity:1;
-    transform:translate(-50%,-50%) scale(1);
 
+.letter.show{
+    opacity:1;
+    transform:
+        translate(-50%,-50%)
+        scale(1)
+        rotate(0deg);
+
+    animation:bounceIn 0.6s;
+}
+    @keyframes bounceIn{
+    0%{
+        transform:translate(-50%,-50%) scale(0.3);
+    }
+
+    60%{
+        transform:translate(-50%,-50%) scale(1.1);
+    }
+
+    80%{
+        transform:translate(-50%,-50%) scale(0.95);
+    }
+
+    100%{
+        transform:translate(-50%,-50%) scale(1);
+    }
 }
     .letter-content{
     font-size:18px;
@@ -131,7 +199,20 @@
     color:#444;
     padding-top:10px;
 }
+    .letter-content::after{
+    content:"|";
+    animation:blink 0.8s infinite;
+    color:#C2185B;
+}
+    .letter-content.finished::after{
+    display:none;
+}
 
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
 .close-btn{
     position:absolute;
     top:10px;
@@ -156,19 +237,26 @@
 <body>
 
 <div id="overlay" class="overlay" onclick="closeLetter()"></div>
+<div class="flower" style="left:3%; animation-duration:20s;">🌸</div>
+<div class="flower" style="left:18%; animation-duration:13s;">🌸</div>
+<div class="flower" style="left:33%; animation-duration:17s;">🌸</div>
+<div class="flower" style="left:45%; animation-duration:12s;">🌸</div>
+<div class="flower" style="left:58%; animation-duration:19s;">🌸</div>
+<div class="flower" style="left:70%; animation-duration:15s;">🌸</div>
+<div class="flower" style="left:80%; animation-duration:11s;">🌸</div>
+<div class="flower" style="left:95%; animation-duration:18s;">🌸</div>    
+
+<div class="flower" style="left:8%; animation-duration:12s;">🌸</div>
+<div class="flower" style="left:28%; animation-duration:15s;">🌸</div>
+<div class="flower" style="left:50%; animation-duration:10s;">🌸</div>
+<div class="flower" style="left:72%; animation-duration:17s;">🌸</div>
+<div class="flower" style="left:90%; animation-duration:13s;">🌸</div>
+
+<div class="flower" style="left:12%; animation-duration:18s;">🌸</div>
+<div class="flower" style="left:38%; animation-duration:11s;">🌸</div>
+<div class="flower" style="left:62%; animation-duration:14s;">🌸</div>
+<div class="flower" style="left:85%; animation-duration:16s;">🌸</div>
     
-
-<div class="flower" style="top:5%; left:8%;">🌸</div>
-<div class="flower" style="top:10%; left:28%;">🌸</div>
-<div class="flower" style="top:8%; left:50%;">🌸</div>
-<div class="flower" style="top:12%; left:72%;">🌸</div>
-<div class="flower" style="top:7%; left:90%;">🌸</div>
-
-<div class="flower" style="top:30%; left:12%;">🌸</div>
-<div class="flower" style="top:35%; left:38%;">🌸</div>
-<div class="flower" style="top:28%; left:62%;">🌸</div>
-<div class="flower" style="top:32%; left:85%;">🌸</div>
-
     <div class="message">
         <div>Chúc mừng ngày Quốc tế Thiếu nhi 🌸</div>
 
@@ -178,47 +266,82 @@
     </div>
 
     <!-- Lá thư -->
-   <div id="letter" class="letter">
+  <div id="letter" class="letter">
     <button class="close-btn" onclick="closeLetter()">✖</button>
 
-    <div class="letter-content">
-        💌<br><br>
-        Chúc các con một ngày Quốc tế Thiếu nhi thật vui vẻ,
-        luôn mạnh khỏe, chăm ngoan và hạnh phúc nhé.
-        Đùa chứ mẹ lớp 8 lớp 9 cả rồi mà vẫn muốn quà bây,
-        thôi thì đây là quà của tao nhá, tại không có nhiều tiền
-        nên mua quà nên tao dành mất 3 ngày làm code đấy,
-        có lỗi gì thông cảm nhá.
-
-        <br><br>
-
-        Với lại sau có xa nhau, học khác trường gì đó
-        cũng vẫn nhớ nhau này, vẫn coi nhau là bạn nha ❤️
-    </div>
+    <div id="letter-content" class="letter-content"></div>
 </div>
 
-    <!-- Nút quay lại -->
-    <button class="button-back"
-            onclick="window.location.href='index.html'">
-        Quay lại
-    </button>
+<button class="button-back"
+        onclick="window.location.href='index.html'">
+    Quay lại
+</button>
 
   <script>
-function openLetter() {
+      const text = `💌
+
+Chúc các con một ngày Quốc tế Thiếu nhi thật vui vẻ,
+luôn mạnh khỏe, chăm ngoan và hạnh phúc nhé.
+
+Đùa chứ mẹ lớp 8 lớp 9 cả rồi mà vẫn muốn quà bây,
+thôi thì đây là quà của tao nhá, tại không có nhiều tiền
+nên mua quà nên tao dành mất 3 ngày làm code đấy,
+có lỗi gì thông cảm nhá.
+
+Với lại sau có xa nhau, học khác trường gì đó
+cũng vẫn nhớ nhau này, vẫn coi nhau là bạn nha ❤️`;
+
+let index = 0;
+      
+let typingTimeout;
+
+function typeWriter() {
+    const content = document.getElementById("letter-content");
+
+    if (index < text.length) {
+        content.innerHTML += text.charAt(index) === "\n"
+            ? "<br>"
+            : text.charAt(index);
+
+        index++;
+        typingTimeout = setTimeout(typeWriter, 25);
+    } else {
+        content.classList.add("finished");
+    }
+}
+    function openLetter() {
+
+    const music = document.getElementById("music");
+
+music.play()
+.then(() => console.log("Đã phát nhạc"))
+.catch(err => console.log(err));
+
+    clearTimeout(typingTimeout);
+
     const letter = document.getElementById("letter");
     const overlay = document.getElementById("overlay");
+    const content = document.getElementById("letter-content");
 
     overlay.style.display = "block";
     letter.style.display = "block";
 
+    content.innerHTML = "";
+    content.classList.remove("finished");
+    index = 0;
+
     setTimeout(() => {
         letter.classList.add("show");
+        typeWriter();
     }, 10);
 }
-
 function closeLetter() {
     const letter = document.getElementById("letter");
     const overlay = document.getElementById("overlay");
+    const content = document.getElementById("letter-content");
+
+    clearTimeout(typingTimeout);
+    content.classList.remove("finished");
 
     letter.classList.remove("show");
 
@@ -229,5 +352,16 @@ function closeLetter() {
 }
 </script>
 
+<audio id="music" loop>
+    <source src="music/Download.mp3" type="audio/mpeg">
+</audio>
+
 </body>
 </html>
+project/
+│
+├── index.html
+├── page2.html
+│
+└── music/
+    └── Download.mp3
