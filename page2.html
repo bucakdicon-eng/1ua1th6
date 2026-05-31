@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang thứ hai</title>
+
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        min-height:100vh;
+        background:#FCE4EC;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family:"Times New Roman", Times, serif;
+        overflow:hidden;
+        position:relative;
+    }
+
+   .message{
+    text-align:center;
+    font-size:clamp(24px, 5vw, 38px);
+    color:#C2185B;
+    font-weight:bold;
+    z-index:2;
+}
+
+   .flower{
+    position:absolute;
+    font-size:28px;
+    opacity:0.45;
+    user-select:none;
+    animation:float 4s ease-in-out infinite;
+}
+    .overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.3);
+    z-index:99;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+   .button-back{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+
+    padding: 8px 18px;
+    font-size: 16px;
+
+    font-family:"Times New Roman", Times, serif;
+    background:#F6A5C0;
+    color:white;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+
+    z-index: 10;
+}
+
+.button-back:hover{
+    transform:scale(1.05);
+    background:#F48FB1;
+}
+.button-letter{
+    margin-top:25px;
+    padding:12px 32px;
+    font-size:22px;
+    font-family:"Times New Roman", Times, serif;
+    background:#F6A5C0;
+    color:white;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+.button-letter:hover{
+    transform:scale(1.05);
+    background:#F48FB1;
+}
+.letter{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0.5);
+
+    width:min(90vw, 420px);
+    max-height:70vh;
+    height:auto;
+
+    background:white;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+
+    padding:20px;
+    z-index:100;
+
+    opacity:0;
+    transition:opacity 0.4s ease, transform 0.4s ease;
+
+    overflow-y:auto;
+}
+    
+    .letter.show{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+
+}
+    .letter-content{
+    font-size:18px;
+    line-height:1.6;
+    color:#444;
+    padding-top:10px;
+}
+
+.close-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+    color:#C2185B;
+}
+
+.close-btn:hover{
+    transform:scale(1.1);
+
+}
+
+  
+</style>
+
+
+</head>
+<body>
+
+<div id="overlay" class="overlay" onclick="closeLetter()"></div>
+    
+
+<div class="flower" style="top:5%; left:8%;">🌸</div>
+<div class="flower" style="top:10%; left:28%;">🌸</div>
+<div class="flower" style="top:8%; left:50%;">🌸</div>
+<div class="flower" style="top:12%; left:72%;">🌸</div>
+<div class="flower" style="top:7%; left:90%;">🌸</div>
+
+<div class="flower" style="top:30%; left:12%;">🌸</div>
+<div class="flower" style="top:35%; left:38%;">🌸</div>
+<div class="flower" style="top:28%; left:62%;">🌸</div>
+<div class="flower" style="top:32%; left:85%;">🌸</div>
+
+    <div class="message">
+        <div>Chúc mừng ngày Quốc tế Thiếu nhi 🌸</div>
+
+        <button class="button-letter" onclick="openLetter()">
+            Mở thư
+        </button>
+    </div>
+
+    <!-- Lá thư -->
+   <div id="letter" class="letter">
+    <button class="close-btn" onclick="closeLetter()">✖</button>
+
+    <div class="letter-content">
+        💌<br><br>
+        Chúc các con một ngày Quốc tế Thiếu nhi thật vui vẻ,
+        luôn mạnh khỏe, chăm ngoan và hạnh phúc nhé.
+        Đùa chứ mẹ lớp 8 lớp 9 cả rồi mà vẫn muốn quà bây,
+        thôi thì đây là quà của tao nhá, tại không có nhiều tiền
+        nên mua quà nên tao dành mất 3 ngày làm code đấy,
+        có lỗi gì thông cảm nhá.
+
+        <br><br>
+
+        Với lại sau có xa nhau, học khác trường gì đó
+        cũng vẫn nhớ nhau này, vẫn coi nhau là bạn nha ❤️
+    </div>
+</div>
+
+    <!-- Nút quay lại -->
+    <button class="button-back"
+            onclick="window.location.href='index.html'">
+        Quay lại
+    </button>
+
+  <script>
+function openLetter() {
+    const letter = document.getElementById("letter");
+    const overlay = document.getElementById("overlay");
+
+    overlay.style.display = "block";
+    letter.style.display = "block";
+
+    setTimeout(() => {
+        letter.classList.add("show");
+    }, 10);
+}
+
+function closeLetter() {
+    const letter = document.getElementById("letter");
+    const overlay = document.getElementById("overlay");
+
+    letter.classList.remove("show");
+
+    setTimeout(() => {
+        letter.style.display = "none";
+        overlay.style.display = "none";
+    }, 400);
+}
+</script>
+
+</body>
+</html>
